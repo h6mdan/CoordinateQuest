@@ -235,35 +235,12 @@ export default function App() {
         <div className="absolute bottom-[25%] right-[5%] text-6xl opacity-20 animate-float pointer-events-none" style={{ animationDelay: '1.5s' }}>🧩</div>
 
         {/* LOGO IN TOP LEFT CORNER */}
-        <div className="absolute top-8 left-8 z-50 animate-bounce-in">
-          <svg 
-            viewBox="0 0 220 120" 
+               <div className="absolute top-8 left-8 z-50 animate-bounce-in">
+          <img 
+            src="/Million-Coders-White-text.svg" 
+            alt="Million Coders Logo" 
             className="h-16 md:h-20 w-auto drop-shadow-xl transform transition-transform hover:scale-110 active:rotate-12 cursor-pointer"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Orange person icon with coding brackets */}
-            <circle cx="40" cy="12" r="10" fill="#FF9800"/>
-            
-            {/* Left bracket < */}
-            <path d="M 20 25 L 12 35 L 20 45 L 15 50 L 5 37 L 15 28 Z" fill="#FF9800"/>
-            
-            {/* Right bracket > */}
-            <path d="M 60 25 L 68 35 L 60 45 L 65 50 L 75 37 L 65 28 Z" fill="#FF9800"/>
-            
-            {/* MILLION text - bold and tight */}
-            <text x="2" y="80" fontSize="18" fontWeight="900" fill="#000000" fontFamily="Impact, Arial Black, sans-serif" letterSpacing="-1">MILLION</text>
-            
-            {/* COD text */}
-            <text x="2" y="102" fontSize="18" fontWeight="900" fill="#000000" fontFamily="Impact, Arial Black, sans-serif" letterSpacing="-1">COD</text>
-            
-            {/* Orange three horizontal bars */}
-            <rect x="62" y="86" width="16" height="4" fill="#FF9800"/>
-            <rect x="62" y="92" width="16" height="4" fill="#FF9800"/>
-            <rect x="62" y="98" width="16" height="4" fill="#FF9800"/>
-            
-            {/* RS text */}
-            <text x="80" y="102" fontSize="18" fontWeight="900" fill="#000000" fontFamily="Impact, Arial Black, sans-serif" letterSpacing="-1">RS</text>
-          </svg>
+          />
         </div>
 
         {/* Background Gradients */}
