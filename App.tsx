@@ -236,12 +236,25 @@ export default function App() {
 
         {/* LOGO IN TOP LEFT CORNER */}
         <div className="absolute top-8 left-8 z-50 animate-bounce-in">
-          <img 
-            src="https://millioncoders.com/wp-content/uploads/2024/05/MILLION-CODERS-LOGO-1.png" 
-            alt="Million Coders Logo" 
-            className="h-16 md:h-20 w-auto drop-shadow-xl transform transition-transform hover:scale-110 active:rotate-12 cursor-pointer"
-          />
-        </div>
+  <svg 
+    viewBox="0 0 1000 1000" 
+    className="h-16 md:h-20 w-auto drop-shadow-xl transform transition-transform hover:scale-110 active:rotate-12 cursor-pointer"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Orange coding person icon */}
+    <circle cx="500" cy="150" r="80" fill="#FF9800"/>
+    <path d="M 300 300 L 420 450 L 300 600 L 350 650 L 500 500 L 350 350 Z" fill="#FF9800"/>
+    <path d="M 700 300 L 580 450 L 700 600 L 650 650 L 500 500 L 650 350 Z" fill="#FF9800"/>
+    
+    {/* MILLION text */}
+    <text x="50" y="800" fontSize="180" fontWeight="900" fill="#000000" fontFamily="Arial, sans-serif">MILLION</text>
+    
+    {/* CODERS text with orange bars */}
+    <text x="50" y="970" fontSize="180" fontWeight="900" fill="#000000" fontFamily="Arial, sans-serif">COD</text>
+    <rect x="480" y="800" width="40" height="150" fill="#FF9800"/>
+    <text x="530" y="970" fontSize="180" fontWeight="900" fill="#000000" fontFamily="Arial, sans-serif">RS</text>
+  </svg>
+</div>
 
         {/* Background Gradients */}
         <div className="absolute top-[-25%] right-[-15%] w-[70%] h-[70%] rounded-full bg-blue-100/50 blur-[120px] animate-pulse"></div>
