@@ -115,8 +115,12 @@ export default function App() {
       if (!isRunningRef.current) break;
       const block = stack[i];
       if (block.type === 'motion' || block.type === 'glide') {
-        const targetX = block.x ?? 0;
-        const targetY = block.y ?? 0;
+        const rawX = block.x ?? 0;
+const rawY = block.y ?? 0;
+
+const targetX = Math.max(-240, Math.min(240, rawX));
+const targetY = Math.max(-180, Math.min(180, rawY));
+
         const duration = block.type === 'glide' ? 1500 : 600;
         setSprites(prev => prev.map(s => s.id === activeSpriteId ? { ...s, x: targetX, y: targetY } : s));
         await new Promise(resolve => setTimeout(resolve, duration));
@@ -132,7 +136,10 @@ export default function App() {
             setUnlockMessage("NEW CHARACTER UNLOCKED! 🌟");
             setTimeout(() => setUnlockMessage(null), 3000);
           }
-          setTargetPos({ x: Math.floor(Math.random() * 300 - 150), y: Math.floor(Math.random() * 200 - 100) });
+          setTargetPos({ 
+  x: Math.floor(Math.random() * 480 - 240),  // -240 to +240
+  y: Math.floor(Math.random() * 360 - 180)   // -180 to +180
+});
           setTimeout(() => setCollisionMessage(null), 2000);
         }
       } else if (block.type === 'say') {
@@ -171,16 +178,35 @@ export default function App() {
     setStack([...stack, newBlock]);
   };
 
-  const updateBlockValue = (id: string, field: keyof Block, value: any) => {
-    setStack(prevStack => prevStack.map(b => {
-      if (b.id !== id) return b;
-      if (field === 'x' || field === 'y' || field === 'duration') {
-        const val = value === '' ? null : parseInt(value);
-        return { ...b, [field]: isNaN(val as any) ? null : val };
+ const updateBlockValue = (id: string, field: keyof Block, value: any) => {
+  setStack(prevStack => prevStack.map(b => {
+    if (b.id !== id) return b;
+
+    if (field === 'x' || field === 'y' || field === 'duration') {
+
+      let val = value === '' ? null : parseInt(value);
+
+      // Clamp to Scratch coordinate limits
+      if (!isNaN(val as any)) {
+
+        // X axis: -240 to +240
+        if (field === 'x') {
+          val = Math.max(-240, Math.min(240, val));
+        }
+
+        // Y axis: -180 to +180
+        if (field === 'y') {
+          val = Math.max(-180, Math.min(180, val));
+        }
       }
-      return { ...b, [field]: value };
-    }));
-  };
+
+      return { ...b, [field]: isNaN(val as any) ? null : val };
+    }
+
+    return { ...b, [field]: value };
+  }));
+};
+
 
   const removeBlock = (id: string) => setStack(stack.filter(b => b.id !== id));
 
@@ -203,17 +229,23 @@ export default function App() {
     setActiveSpriteId(id);
   };
 
-  const xLabels = useMemo(() => {
-    const labels = [];
-    for (let i = -1000; i <= 1000; i += 50) { if (i !== 0) labels.push(i); }
-    return labels;
-  }, []);
+ const xLabels = useMemo(() => {
+  const labels = [];
+  for (let i = -240; i <= 240; i += 40) {
+    if (i !== 0) labels.push(i);
+  }
+  return labels;
+}, []);
+
 
   const yLabels = useMemo(() => {
-    const labels = [];
-    for (let i = -800; i <= 800; i += 50) { if (i !== 0) labels.push(i); }
-    return labels;
-  }, []);
+  const labels = [];
+  for (let i = -180; i <= 180; i += 30) {
+    if (i !== 0) labels.push(i);
+  }
+  return labels;
+}, []);
+
 
   const ui = useMemo(() => {
     switch(activeTheme.uiStyle) {
