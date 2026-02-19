@@ -184,7 +184,14 @@ const targetY = Math.max(-180, Math.min(180, rawY));
 
     if (field === 'x' || field === 'y' || field === 'duration') {
 
-      let val = value === '' ? null : parseInt(value);
+      const parsed = parseInt(value);
+
+if (isNaN(parsed)) {
+  return { ...b, [field]: 0 };
+}
+
+let val = parsed;
+
 
       // Clamp to Scratch coordinate limits
       if (!isNaN(val as any)) {
@@ -200,7 +207,8 @@ const targetY = Math.max(-180, Math.min(180, rawY));
         }
       }
 
-      return { ...b, [field]: isNaN(val as any) ? null : val };
+     return { ...b, [field]: val };
+
     }
 
     return { ...b, [field]: value };
